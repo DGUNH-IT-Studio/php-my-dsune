@@ -1,0 +1,39 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}ScheduleRing index{% endblock %}
+
+{% block body %}
+    <h1>ScheduleRing index</h1>
+
+    <table class="table">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Lesson_num</th>
+                <th>Time_start</th>
+                <th>Time_end</th>
+                <th>actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for schedule_ring in schedule_rings %}
+            <tr>
+                <td>{{ schedule_ring.id }}</td>
+                <td>{{ schedule_ring.lessonNum }}</td>
+                <td>{{ schedule_ring.timeStart ? schedule_ring.timeStart|date('H:i:s') : '' }}</td>
+                <td>{{ schedule_ring.timeEnd ? schedule_ring.timeEnd|date('H:i:s') : '' }}</td>
+                <td>
+                    <a href="{{ path('app_schedule_ring_show', {'id': schedule_ring.id}) }}">show</a>
+                    <a href="{{ path('app_schedule_ring_edit', {'id': schedule_ring.id}) }}">edit</a>
+                </td>
+            </tr>
+        {% else %}
+            <tr>
+                <td colspan="5">no records found</td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <a href="{{ path('app_schedule_ring_new') }}">Create new</a>
+{% endblock %}

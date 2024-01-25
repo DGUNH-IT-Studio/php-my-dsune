@@ -1,0 +1,13 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Edit ScheduleRing{% endblock %}
+
+{% block body %}
+    <h1>Edit ScheduleRing</h1>
+
+    {{ include('schedule_ring/_form.html.twig', {'button_label': 'Update'}) }}
+
+    <a href="{{ path('app_schedule_ring_index') }}">back to list</a>
+
+    {{ include('schedule_ring/_delete_form.html.twig') }}
+{% endblock %}

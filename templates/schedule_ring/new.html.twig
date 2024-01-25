@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}New ScheduleRing{% endblock %}
+
+{% block body %}
+    <h1>Create new ScheduleRing</h1>
+
+    {{ include('schedule_ring/_form.html.twig') }}
+
+    <a href="{{ path('app_schedule_ring_index') }}">back to list</a>
+{% endblock %}
