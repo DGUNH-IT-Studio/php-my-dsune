@@ -22,6 +22,9 @@ class Classroom
     #[ORM\Column]
     private ?int $num = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?int $capacity = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -59,6 +62,18 @@ class Classroom
     public function setNum(int $num): static
     {
         $this->num = $num;
+
+        return $this;
+    }
+
+    public function getCapacity(): ?int
+    {
+        return $this->capacity;
+    }
+
+    public function setCapacity(?int $capacity): static
+    {
+        $this->capacity = $capacity;
 
         return $this;
     }
