@@ -21,6 +21,19 @@ class EducationLevelRepository extends ServiceEntityRepository
         parent::__construct($registry, EducationLevel::class);
     }
 
+    public function list(): array
+    {
+        $educationLevels = array();
+        foreach ($this->findAll() as $educationLevel)
+        {
+            $educationLevels[] = array(
+                'id' => $educationLevel->getId(),
+                'education_profile_name' => $educationLevel->getEducationLevelName()
+            );
+        }
+        return $educationLevels;
+    }
+
 //    /**
 //     * @return EducationLevel[] Returns an array of EducationLevel objects
 //     */

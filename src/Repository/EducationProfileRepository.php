@@ -21,6 +21,19 @@ class EducationProfileRepository extends ServiceEntityRepository
         parent::__construct($registry, EducationProfile::class);
     }
 
+    public function list(): array
+    {
+        $educationProfiles = array();
+        foreach ($this->findAll() as $educationProfile)
+        {
+            $educationProfiles[] = array(
+                'id' => $educationProfile->getId(),
+                'education_profile_name' => $educationProfile->getEducationProfileName()
+            );
+        }
+        return $educationProfiles;
+    }
+
 //    /**
 //     * @return EducationProfile[] Returns an array of EducationProfile objects
 //     */

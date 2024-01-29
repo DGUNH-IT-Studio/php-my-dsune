@@ -21,6 +21,43 @@ class EducationGroupRepository extends ServiceEntityRepository
         parent::__construct($registry, EducationGroup::class);
     }
 
+    public function list(): array
+    {
+        $educationPrograms = array();
+
+        foreach ($this->findAll() as $educationProgram)
+        {
+            $educationPrograms[] = array(
+                'id' => $educationProgram->getId(),
+                'education_program_id' => $educationProgram->getEducationProgram()->getId(),
+                'course' => $educationProgram->getCourse(),
+                'num' => $educationProgram->getNum(),
+                'subnum' => $educationProgram->getSubnum()
+            );
+        }
+
+        return $educationPrograms;
+    }
+
+    public function search($educationProgramID, $course, $groupNum, $groupSubNum)
+    {
+        $result = $this->findOneBy(
+            criteria: array(
+                'education_program' => $educationProgramID,
+                'course' => $course,
+                'num' => $groupNum,
+                'subnum' => $groupSubNum
+            )
+        );
+        return array(
+            'id'=>$result->getId(),
+            'education_program_id' => $result->getEducationProgram()->getId(),
+            'course' => $result->getCourse(),
+            'num' => $result->getNum(),
+            'subnum' => $result->getSubnum()
+        );
+    }
+
 //    /**
 //     * @return EducationGroup[] Returns an array of EducationGroup objects
 //     */

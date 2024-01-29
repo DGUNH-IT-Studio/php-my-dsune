@@ -7,8 +7,10 @@ use App\Form\EducationProfileType;
 use App\Repository\EducationProfileRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Attribute\MapQueryParameter;
 use Symfony\Component\Routing\Annotation\Route;
 
 #[Route('/education/profile')]
@@ -20,6 +22,12 @@ class EducationProfileController extends AbstractController
         return $this->render('education_profile/index.html.twig', [
             'education_profiles' => $educationProfileRepository->findAll(),
         ]);
+    }
+
+    #[Route('/list', name: 'app_education_profile_list', methods: ['GET'])]
+    public function educationProfileList(EducationProfileRepository $educationProfileRepository): JsonResponse
+    {
+        return new JsonResponse($educationProfileRepository->list());
     }
 
     #[Route('/new', name: 'app_education_profile_new', methods: ['GET', 'POST'])]

@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/education/form')]
 class EducationFormController extends AbstractController
@@ -20,6 +22,12 @@ class EducationFormController extends AbstractController
         return $this->render('education_form/index.html.twig', [
             'education_forms' => $educationFormRepository->findAll(),
         ]);
+    }
+
+    #[Route('/list', name: 'app_education_form_list', methods: ['GET'])]
+    public function educationFormList(EducationFormRepository $educationFormRepository): JsonResponse
+    {
+        return new JsonResponse($educationFormRepository->list());
     }
 
     #[Route('/new', name: 'app_education_form_new', methods: ['GET', 'POST'])]

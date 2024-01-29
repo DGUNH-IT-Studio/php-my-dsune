@@ -9,7 +9,9 @@ use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\Routing\Annotation\Route;
+
 
 #[Route('/education/level')]
 class EducationLevelController extends AbstractController
@@ -20,6 +22,12 @@ class EducationLevelController extends AbstractController
         return $this->render('education_level/index.html.twig', [
             'education_levels' => $educationLevelRepository->findAll(),
         ]);
+    }
+
+    #[Route('/list', name: 'app_education_level_index', methods: ['GET'])]
+    public function educationLevelList(EducationLevelRepository $educationLevelRepository): JsonResponse
+    {
+        return new JsonResponse($educationLevelRepository->list());
     }
 
     #[Route('/new', name: 'app_education_level_new', methods: ['GET', 'POST'])]

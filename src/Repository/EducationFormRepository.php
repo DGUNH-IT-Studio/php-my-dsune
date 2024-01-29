@@ -21,6 +21,19 @@ class EducationFormRepository extends ServiceEntityRepository
         parent::__construct($registry, EducationForm::class);
     }
 
+    public function list(): array
+    {
+        $educationForms = array();
+        foreach ($this->findAll() as $educationForm)
+        {
+            $educationForms[] = array(
+                'id' => $educationForm->getId(),
+                'education_profile_name' => $educationForm->getEducationFormName()
+            );
+        }
+        return $educationForms;
+    }
+
 //    /**
 //     * @return EducationForm[] Returns an array of EducationForm objects
 //     */
