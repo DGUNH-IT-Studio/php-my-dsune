@@ -36,24 +36,16 @@ class EducationProgramRepository extends ServiceEntityRepository
 
     public function search(int $educationLevelID, int $educationFormID, int $educationProfileID)
     {
-        $em = $this->getEntityManager();
-
-        $query = $em->createQuery(
-            'SELECT education_program
-            FROM App\Entity\EducationProgram education_program
-            WHERE education_program.education_profile = :educationProfileID AND
-            education_program.education_form = :educationFormID AND
-            education_program.education_level = :educationLevelID'
+        $queryResult = $this->findBy(
+            criteria: array(
+                'education_profile' => $educationProfileID,
+                'education_form' => $educationFormID,
+                'education_level' => $educationLevelID
+            )
         );
-        $query->setParameters([
-            'educationProfileID' => $educationProfileID,
-            'educationFormID' => $educationFormID,
-            'educationLevelID' => $educationLevelID
-        ]);
-        $queryResult = $query->getResult();
         
-        if (!$queryResult) {
-            return [];
+        if ($queryResult === []) {
+            return null;
         } else {
             $educationPrograms = array();
 
